@@ -3,53 +3,65 @@ import { Item, GildedRose } from '../app/gilded-rose';
 
 describe('Gilded Rose', function () {
 
-    it('should foo', function() {
+    it('1) should foo', function() {
         const gildedRose = new GildedRose([ new Item('foo', 0, 0) ]);
         const items = gildedRose.updateQuality();
         expect(items[0].name).to.equal('foo');
     });
 
-    it ('should decrease quality by one for ITEMS products', function () {
+    it ('2) should decrease quality by one for ITEMS products', function () {
         const gildedRose = new GildedRose([new Item('item', 5, 10)]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(9);
     })
 
-    it ('should not return a negative quality for ITEMS products', function () {
+    it ('3)should not return a negative quality for ITEMS products', function () {
         const gildedRose = new GildedRose([new Item('item', 3, 0)]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(0);
     })
 
-    it ('should decrease sellIn by one for ITEMS products', function () {
+    it ('4) should decrease sellIn by one for ITEMS products', function () {
         const gildedRose = new GildedRose([new Item('item', 5, 5)]);
         const items = gildedRose.updateQuality();
         expect(items[0].sellIn).to.equal(4);
     })
 
-    it ('should allow sellIn to return negative for ITEMS products ', function () {
+    it ('5) should allow sellIn to return negative for ITEMS products ', function () {
         const gildedRose = new GildedRose([new Item('item', 0, 5)]);
         const items = gildedRose.updateQuality();
         expect(items[0].sellIn).to.equal(-1);
     })
 
-    it ('should allow quality to increase by one for BACKSTAGE passes when SellIn is over 10 days away ', function () {
+    it ('6) should allow quality to increase by one for BACKSTAGE passes when SellIn is over 10 days away ', function () {
         const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 15, 5)]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(6);
     })
 
-    it ('should allow quality to increase by two for BACKSTAGE passes when SellIn is 10 or less days away ', function () {
+    it ('7) should allow quality to increase by two for BACKSTAGE passes when SellIn is 10 or less days away ', function () {
         const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 10, 5)]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(7);
     })
 
 
-    it ('should allow quality to increase by three for BACKSTAGE passes when SellIn is 5 or less days away ', function () {
+    it ('8) should allow quality to increase by three for BACKSTAGE passes when SellIn is 5 or less days away ', function () {
         const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 5, 5)]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(8);
+    })
+
+    it('9) should increase the quality of Aged Brie by one as the sellIn days decreas', function () {
+        const gildedRose = new GildedRose ([new Item('Aged Brie', 6, 8)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(9);
+     })
+
+    it('10) should increase the quality of Aged Brie by two when the SellIn days have gone (sellIn < 0)', function () {
+         const gildedRose = new GildedRose([new Item('Aged Brie', 0, 10)]);
+         const items = gildedRose.updateQuality();
+         expect(items[0].quality).to.equal(12);
     })
 
     it('should pass the golden master test', function() {
