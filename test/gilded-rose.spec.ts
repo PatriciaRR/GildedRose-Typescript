@@ -56,12 +56,24 @@ describe('Gilded Rose', function () {
         const gildedRose = new GildedRose ([new Item('Aged Brie', 6, 8)]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(9);
-     })
+    })
 
     it('10) should increase the quality of Aged Brie by two when the SellIn days have gone (sellIn < 0)', function () {
-         const gildedRose = new GildedRose([new Item('Aged Brie', 0, 10)]);
+         const gildedRose = new GildedRose([new Item('Aged Brie', -2, 10)]);
          const items = gildedRose.updateQuality();
          expect(items[0].quality).to.equal(12);
+    })
+
+    it('11) should maintain quality and sellIn values for "Sulfuras, Hand of Ragnaros" products', function () {
+        const gildedRose = new GildedRose ([new Item('Sulfuras, Hand of Ragnaros', 0, 80)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(80);
+    })
+
+    it ('12) should return quality 0 for BACKSTAGE passes once sellIn goes < 0', function() {
+        const gildedRose = new GildedRose ([new Item('Backstage passes to a TAFKAL80ETC concert', -2, 7)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(0);
     })
 
     it('should pass the golden master test', function() {
