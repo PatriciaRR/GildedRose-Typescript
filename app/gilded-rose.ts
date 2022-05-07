@@ -64,12 +64,10 @@ export class GildedRose {
                     } else {
                         this.items[i].quality = this.items[i].quality - this.items[i].quality
                     }
-                } else {
-                    if (this.items[i].quality < 50) {
-                        this.items[i].quality = this.items[i].quality + 0 // remove these 3 lines
-                    }
+                
                 }
             }
+            
         }
 
         return this.items;
