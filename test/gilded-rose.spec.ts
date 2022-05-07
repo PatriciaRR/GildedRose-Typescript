@@ -9,6 +9,49 @@ describe('Gilded Rose', function () {
         expect(items[0].name).to.equal('foo');
     });
 
+    it ('should decrease quality by one for ITEMS products', function () {
+        const gildedRose = new GildedRose([new Item('item', 5, 10)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(9);
+    })
+
+    it ('should not return a negative quality for ITEMS products', function () {
+        const gildedRose = new GildedRose([new Item('item', 3, 0)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(0);
+    })
+
+    it ('should decrease sellIn by one for ITEMS products', function () {
+        const gildedRose = new GildedRose([new Item('item', 5, 5)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].sellIn).to.equal(4);
+    })
+
+    it ('should allow sellIn to return negative for ITEMS products ', function () {
+        const gildedRose = new GildedRose([new Item('item', 0, 5)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].sellIn).to.equal(-1);
+    })
+
+    it ('should allow quality to increase by one for BACKSTAGE passes when SellIn is over 10 days away ', function () {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 15, 5)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(6);
+    })
+
+    it ('should allow quality to increase by two for BACKSTAGE passes when SellIn is 10 or less days away ', function () {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 10, 5)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(7);
+    })
+
+
+    it ('should allow quality to increase by three for BACKSTAGE passes when SellIn is 5 or less days away ', function () {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 5, 5)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(8);
+    })
+
     it('should pass the golden master test', function() {
         //arrange
         const inputData = [ 
