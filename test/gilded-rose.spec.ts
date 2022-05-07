@@ -70,10 +70,16 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(80);
     })
 
-    it ('12) should return quality 0 for BACKSTAGE passes once sellIn goes < 0', function() {
+    it ('12) should return quality 0 for BACKSTAGE passes once sellIn date passes (<0)', function() {
         const gildedRose = new GildedRose ([new Item('Backstage passes to a TAFKAL80ETC concert', -2, 7)]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(0);
+    })
+
+    it ('13) should return quality decreasing by two after the sellIn date has passed (<0)', function () {
+        const gildedRose = new GildedRose([new Item('item', -2, 8)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(6);
     })
 
     it('should pass the golden master test', function() {
