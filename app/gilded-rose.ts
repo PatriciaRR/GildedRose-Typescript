@@ -60,6 +60,10 @@ export class GildedRose {
             if (this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
                 this.items[i].quality = 80;
             }
+
+            if (this.items[i].name === 'Conjured Mana Cake') {
+                this.items[0].quality = this.items[0].quality - 2;
+            }
             
         }
         return this.items;

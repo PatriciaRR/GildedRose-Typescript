@@ -82,6 +82,19 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(6);
     })
 
+    it('14) should decrease quality by two when the product is Conjured Mana Cake', function () {
+        const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 5, 10)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(8);
+        
+    })
+
+    it('15) should decrease by one the sellIn value when the product is conjured mana cake', function () {
+        const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 5, 10)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].sellIn).to.equal(4);
+    })
+
     it('should pass the golden master test', function() {
         //arrange
         const inputData = [ 
